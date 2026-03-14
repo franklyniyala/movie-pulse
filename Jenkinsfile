@@ -10,7 +10,7 @@ pipeline{
     stages{
         stage('checkout code'){
             steps{
-                git branch 'main', url: 'https://github.com/waleolajumoke/moviepulse'
+                git branch: 'main', url: 'https://github.com/waleolajumoke/moviepulse'
             }
 
         }
