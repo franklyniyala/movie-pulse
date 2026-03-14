@@ -36,7 +36,7 @@ pipeline{
     }
 
     post{
-        suceess{
+        success{
             echo "React image build and pushed successfully"
         }
         failure{
