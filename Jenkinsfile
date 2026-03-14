@@ -1,8 +1,8 @@
 pipeline{
     agent any
     environment{
-        IMAGE_NAME: 'my-app:v1.0'
-        IMAGE_TAG: 'v1'
+        IMAGE_NAME = 'my-app:v1.0'
+        IMAGE_TAG = 'v1'
         DOCKER_CREDENTIAL_ID = "dockerlogin"
 
     }
