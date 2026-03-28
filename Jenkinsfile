@@ -5,7 +5,9 @@ pipeline{
     stages{
         stage('checkout code'){
             steps{
-                git branch: 'main', url: 'https://github.com/franklyniyala/moviepulse'
+                git branch: 'main', 
+                credentialsId: 'GITHUB_CRED'
+                url: 'https://github.com/franklyniyala/moviepulse'
             }
 
         }
