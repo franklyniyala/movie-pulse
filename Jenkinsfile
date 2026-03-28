@@ -1,7 +1,5 @@
 pipeline{
     agent any
-
-
     stages{
         stage('checkout code'){
             steps{
@@ -27,7 +25,7 @@ pipeline{
                     passwordVariable: 'PASSWORD'
                     )]){
                         sh '''
-                            echo '$PASSWORD | docker login -u $USERNAME --password-stdin
+                            echo $PASSWORD | docker login -u $USERNAME --password-stdin
                         '''
                     }
             }
