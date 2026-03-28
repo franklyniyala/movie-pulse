@@ -46,14 +46,15 @@ pipeline{
             echo " ❌ Pipeline failed"
         }
 
-        stage('Deploy Application'){
-            steps{
-                sh '''
-                    docker stop ekenefranklyn/movie-pulse || true
-                    docker rm ekenefranklyn/movie-pulse || true
-                    docker run -d -p 2500:80 --name movie-pulse ekenefranklyn/movie-pulse:v1
-                '''
-            }
+    }
+
+     stage('Deploy Application'){
+        steps{
+            sh '''
+                docker stop ekenefranklyn/movie-pulse || true
+                docker rm ekenefranklyn/movie-pulse || true
+                docker run -d -p 2500:80 --name movie-pulse ekenefranklyn/movie-pulse:v1
+            '''
         }
     }
 }
