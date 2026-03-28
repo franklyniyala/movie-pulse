@@ -31,31 +31,38 @@ pipeline{
             }
         }
 
-        stage("push to docker hub"){
-            steps{
-                sh 'docker push ekenefranklyn/movie-pulse:v1'
+        stage("Push to Docker Hub") {
+            steps {
+                withCredentials([usernamePassword(
+                    credentialsId: 'DOCKER_LOGIN',
+                    usernameVariable: 'USERNAME',
+                    passwordVariable: 'PASSWORD'
+                )]) {
+                    sh '''
+                        echo $PASSWORD | docker login -u $USERNAME --password-stdin
+                        docker push ekenefranklyn/movie-pulse:v1
+                    '''
+                }
+            }
+        }
+
+        stage('Deploy Application') {
+            steps {
+                sh '''
+                    docker stop movie-pulse || true
+                    docker rm movie-pulse || true
+                    docker run -d -p 2500:80 --name movie-pulse ekenefranklyn/movie-pulse:v1
+                '''
             }
         }
     }
 
-    post{
-        success{
-            echo " ✅ React image build and pushed successfully"
+    post {
+        success {
+            echo "✅ React image built and pushed successfully"
         }
-        failure{
-            echo " ❌ Pipeline failed"
-        }
-
-    }
-
-     stage('Deploy Application'){
-        steps{
-            sh '''
-                docker stop ekenefranklyn/movie-pulse || true
-                docker rm ekenefranklyn/movie-pulse || true
-                docker run -d -p 2500:80 --name movie-pulse ekenefranklyn/movie-pulse:v1
-            '''
+        failure {
+            echo "❌ Pipeline failed"
         }
     }
 }
-
