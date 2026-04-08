@@ -4,10 +4,28 @@ pipeline{
         stage('checkout code'){
             steps{
                 git branch: 'main', 
-                credentialsId: 'GITHUB_CRED',
+                credentialsId: 'GITHUB_LOGIN',
                 url: 'https://github.com/franklyniyala/movie-pulse'
             }
 
+        }
+
+        stage('Sonarqube Analysis'){
+            steps{
+                withCredentials([string(credentialsId: 'SONAR_TOKEN', variable: 'SONAR_TOKEN')]){
+                    sh '''
+                    docker run --rm \
+                    -e SONAR_TOKEN=$SONAR_TOKEN \
+                    -v $(pwd):/usr/src \
+                    sonarsource/sonar-scanner-cli \
+                    -Dsonar.projectKey=frank-org_movie-pulse \
+                    -Dsonar.organiztion=frank-org \
+                    -Dsonar.sources=. \
+                    -Dsonar.host.url=http://sonarcloud.io \
+                    '''
+
+                }
+            }
         }
 
         stage("Build docker image"){
@@ -32,19 +50,10 @@ pipeline{
         }
 
         stage("Push to Docker Hub") {
-            steps {
-                withCredentials([usernamePassword(
-                    credentialsId: 'DOCKER_LOGIN',
-                    usernameVariable: 'USERNAME',
-                    passwordVariable: 'PASSWORD'
-                )]) {
-                    sh '''
-                        echo $PASSWORD | docker login -u $USERNAME --password-stdin
-                        docker push ekenefranklyn/movie-pulse:v1
-                    '''
+            steps { 
+                    sh 'docker push ekenefranklyn/movie-pulse:v1'
                 }
             }
-        }
 
         stage('Deploy Application') {
             steps {
