@@ -5,7 +5,7 @@ pipeline{
             steps{
                 git branch: 'main', 
                 credentialsId: 'GITHUB_LOGIN',
-                url: 'https://github.com/franklyniyala/movie-pulse'
+                url: 'https://github.com/franklyniyala/movie-pulse.git'
             }
 
         }
