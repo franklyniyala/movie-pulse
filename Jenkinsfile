@@ -68,7 +68,9 @@ pipeline{
 
     post {
         success {
-            echo "✅ React image built and pushed successfully"
+            echo "✅ Image built successfully"
+            echo "✅ Image pushed to Docker Hub successfully"
+            echo "✅ Application deployed successfully"
         }
         failure {
             echo "❌ Pipeline failed"
