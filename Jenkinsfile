@@ -60,7 +60,7 @@ pipeline{
                 sh '''
                     docker stop movie-pulse || true
                     docker rm movie-pulse || true
-                    docker run -d -p 2500:80 --name movie-pulse ekenefranklyn/movie-pulse:v1
+                    docker run -d -p 5173:5173 --name movie-pulse ekenefranklyn/movie-pulse:v1
                 '''
             }
         }
