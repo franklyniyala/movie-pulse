@@ -19,7 +19,7 @@ pipeline{
                     -v $(pwd):/usr/src \
                     sonarsource/sonar-scanner-cli \
                     -Dsonar.projectKey=frank-org_movie-pulse \
-                    -Dsonar.organiztion=frank-org \
+                    -Dsonar.organization=frank-org \
                     -Dsonar.sources=. \
                     -Dsonar.host.url=http://sonarcloud.io \
                     '''
