@@ -30,7 +30,7 @@ pipeline{
 
         stage("Build docker image"){
             steps{
-                sh 'docker build -t ekenefranklyn/movie-pulse:v1 .'
+                sh 'docker build -t ekenefranklyn/movie-pulse:v2 .'
             }
 
         }
@@ -66,7 +66,7 @@ pipeline{
 
         stage("Push to Docker Hub") {
             steps { 
-                    sh 'docker push ekenefranklyn/movie-pulse:v1'
+                    sh 'docker push ekenefranklyn/movie-pulse:v2'
                 }
             }
 
@@ -75,7 +75,7 @@ pipeline{
                 sh '''
                     docker stop movie-pulse || true
                     docker rm movie-pulse || true
-                    docker run -d -p 5173:5173 --name movie-pulse ekenefranklyn/movie-pulse:v1
+                    docker run -d -p 5173:5173 --name movie-pulse ekenefranklyn/movie-pulse:v2
                 '''
             }
         }
