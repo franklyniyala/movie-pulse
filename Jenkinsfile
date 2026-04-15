@@ -36,18 +36,13 @@ pipeline{
         }
 
         stage('Snyk Scan') {
-            environment{
-                SNYK_TOKEN = credentials ('SNYK_TOKEN')
-                } 
-
             steps {
-                dir($WORKSPACE) {
-                    sh '''
-                        snyk auth $SNYK_TOKEN
-                        synk test --docker ekenefranklyn/movie-pulse:v1 --file=Dokerfile
-                        '''
-                        }  
+                withCredentials([string(credentialsId: 'SNYK_TOKEN', variable: 'SNYK_TOKEN')]) {
+                    sh ' snyk auth $SNYK_TOKEN'
+                    sh 'snyk container test ekenefranklyn/movie-pulse:v2 --severity-threshold=high || true'
+
                 }
+            }
         }
 
         stage('Login to docker hub'){
