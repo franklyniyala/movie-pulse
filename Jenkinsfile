@@ -46,7 +46,8 @@ pipeline{
                         snyk auth $SNYK_TOKEN
                         synk test --docker ekenefranklyn/movie-pulse:v1 --file=Dokerfile
                         '''
-                }  
+                        }  
+                }
         }
 
         stage('Login to docker hub'){
@@ -79,6 +80,7 @@ pipeline{
             }
         }
     }
+
 
     post {
         success {
