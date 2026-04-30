@@ -1,0 +1,48 @@
+# Git
+.git
+
+# Infrastructure / Terraform
+infrastructure/
+*.tfstate
+*.tfstate.*
+*.tfvars
+.terraform/
+.terraform.lock.hcl
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Local dependencies (Docker installs its own via npm install)
+node_modules
+
+# Build output
+dist
+dist-ssr
+
+# Editor directories
+.vscode/
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Cache
+.cache
+.vite
+coverage
+
+# Environment
+*.local
+.env
+
+# CI/CD & docs — not needed at runtime
+Jenkinsfile
+README.md
